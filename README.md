@@ -22,13 +22,6 @@ app.config.from_mapping({**flask_config, **faust_config})
 
 faust = Faust(app)
 faust_app = faust.get_faust_app()
-
-
-@faust.task('tasks-topic')
-class SimpleTask(Task):
-
-    def handle(self) -> Result | None:
-        ...
 ```
 
 ```py
