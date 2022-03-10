@@ -37,7 +37,7 @@ class Faust:
         bootstrap_server = app.config['FAUST_BOOTSTRAP_SERVER']
         backend_url = app.config['FAUST_BACKEND_URL']
         concurrency = app.config.get('FAUST_CONCURRENCY', 1)
-        timeout = app.config.get('FAUST_PRODUCER_TIMEOUT', -1)
+        timeout = app.config.get('FAUST_PRODUCER_TIMEOUT', 1)
 
         self._faust = faust.App(app.name + '-faust', broker=bootstrap_server)
         self._producer = DefaultProducer(bootstrap_server, timeout=timeout)
