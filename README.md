@@ -1,6 +1,6 @@
 # Flask-Faust
 
-Simple task queues with Kafka and Faust
+Flask extension for background tasks using Kafka and Faust
 
 ## Usage
 
