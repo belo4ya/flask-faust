@@ -6,6 +6,9 @@ Simple task queues with Kafka and Faust
 
 ### Simple Usage
 
+Create a Flask app like you always have. Add several configuration parameters to the application. Create a `Faust`
+object.
+
 ```py
 from flask import Flask
 
@@ -24,6 +27,9 @@ faust = Faust(app)
 faust_app = faust.get_faust_app()
 ```
 
+Inherit your task class from `Task` and implement the `handle` method in it. Using the `Faust.task` decorator register
+your task class and assign it to the Kafka topic.
+
 ```py
 @faust.task('tasks-topic')
 class SimpleTask(Task):
@@ -31,6 +37,9 @@ class SimpleTask(Task):
     def handle(self) -> Result | None:
         ...
 ```
+
+Use the `send` method to send your task to the task queue. With the help of task ID and the `TaskResult` class, you can
+get to the result of the task execution.
 
 ```py
 @app.get('/tasks/')
@@ -45,6 +54,9 @@ def task_status_view(task_id: str):
     ...
 ```
 
+To start the worker, use the command below or refer to the
+Faust [documentation](https://github.com/faust-streaming/faust)
+
 ```shell
-faust -A filename.faust_app worker -l info
+faust -A module.faust_app worker -l info
 ```
